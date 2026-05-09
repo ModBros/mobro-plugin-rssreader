@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <RootNamespace>MoBro.Plugin.RssReader</RootNamespace>
+        <Authors>ModBros</Authors>
+        <Company>ModBros KG</Company>
+        <Product>MoBro</Product>
+        <Description>RSS Reader Plugin for MoBro</Description>
+        <Title>MoBro RSS Reader Plugin</Title>
+        <Copyright>(C) ModBros KG 2026</Copyright>
+        <PackageProjectUrl>https://mobro.app</PackageProjectUrl>
+        <VersionPrefix>1.0.0</VersionPrefix>
+        <IsPackable>false</IsPackable>
+        <Nullable>enable</Nullable>
+        <OutputType>Exe</OutputType>
+        <EnableDynamicLoading>true</EnableDynamicLoading>
+        <UseAppHost>false</UseAppHost>
+        <SelfContained>false</SelfContained>
+        <LangVersion>14</LangVersion>
+        <InvariantGlobalization>true</InvariantGlobalization>
+    </PropertyGroup>
+    <ItemGroup>
+        <Content Include="mobro_plugin_config.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </Content>
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="Resources\**\*">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </Content>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="CodeHollow.FeedReader" Version="1.2.6"/>
+        <PackageReference Include="MoBro.Plugin.SDK" Version="1.1.1"/>
+    </ItemGroup>
+</Project>

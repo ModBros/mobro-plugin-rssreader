@@ -1,0 +1,12 @@
+{
+  "metric.title.label": "Titel",
+  "metric.title.desc": "Der Titel des Feed-Eintrags",
+  "metric.description.label": "Beschreibung",
+  "metric.description.desc": "Die Beschreibung des Feed-Eintrags",
+  "metric.link.label": "Link",
+  "metric.link.desc": "Der Link zum vollständigen Artikel",
+  "metric.date.label": "Datum",
+  "metric.date.desc": "Das Veröffentlichungsdatum des Feed-Eintrags",
+  "metric.author.label": "Autor",
+  "metric.author.desc": "Der Autor des Feed-Eintrags"
+}

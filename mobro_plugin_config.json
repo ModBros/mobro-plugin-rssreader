@@ -1,0 +1,82 @@
+{
+  "name": "modbros_rssreader",
+  "displayName": "RSS Reader",
+  "author": "ModBros",
+  "description": "Display the latest items from up to 3 RSS feeds",
+  "assembly": "Plugin.RssReader.dll",
+  "localization": "Resources/Localization",
+  "repository": null,
+  "homepage": null,
+  "tags": [
+    "rss",
+    "news",
+    "feed"
+  ],
+  "dependencies": [],
+  "settings": [
+    {
+      "type": "string",
+      "name": "feed_url_1",
+      "label": "RSS Feed URL 1",
+      "description": "The URL of the first RSS feed to display",
+      "required": true
+    },
+    {
+      "type": "string",
+      "name": "feed_name_1",
+      "label": "RSS Feed Name 1",
+      "description": "A display name for the first RSS feed (optional, defaults to 'Feed 1')",
+      "defaultValue": "Feed 1",
+      "required": false
+    },
+    {
+      "type": "string",
+      "name": "feed_url_2",
+      "label": "RSS Feed URL 2",
+      "description": "The URL of the second RSS feed to display (optional)",
+      "required": false
+    },
+    {
+      "type": "string",
+      "name": "feed_name_2",
+      "label": "RSS Feed Name 2",
+      "description": "A display name for the second RSS feed (optional, defaults to 'Feed 2')",
+      "defaultValue": "Feed 2",
+      "required": false
+    },
+    {
+      "type": "string",
+      "name": "feed_url_3",
+      "label": "RSS Feed URL 3",
+      "description": "The URL of the third RSS feed to display (optional)",
+      "required": false
+    },
+    {
+      "type": "string",
+      "name": "feed_name_3",
+      "label": "RSS Feed Name 3",
+      "description": "A display name for the third RSS feed (optional, defaults to 'Feed 3')",
+      "defaultValue": "Feed 3",
+      "required": false
+    },
+    {
+      "type": "number",
+      "name": "item_count",
+      "label": "Number of items per feed",
+      "description": "The number of feed items to display per feed",
+      "required": true,
+      "defaultValue": 5,
+      "min": 1,
+      "max": 20
+    },
+    {
+      "type": "number",
+      "name": "update_frequency",
+      "label": "Update frequency (minutes)",
+      "description": "How often to fetch the latest feed items (in minutes)",
+      "required": true,
+      "defaultValue": 30,
+      "min": 5
+    }
+  ]
+}
