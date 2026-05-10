@@ -17,53 +17,53 @@
     {
       "type": "string",
       "name": "feed_url_1",
-      "label": "RSS Feed URL 1",
-      "description": "The URL of the first RSS feed to display",
+      "label": "setting.feed_url_1.label",
+      "description": "setting.feed_url_1.desc",
       "required": true
     },
     {
       "type": "string",
       "name": "feed_name_1",
-      "label": "RSS Feed Name 1",
-      "description": "A display name for the first RSS feed (optional, defaults to 'Feed 1')",
+      "label": "setting.feed_name_1.label",
+      "description": "setting.feed_name_1.desc",
       "defaultValue": "Feed 1",
       "required": false
     },
     {
       "type": "string",
       "name": "feed_url_2",
-      "label": "RSS Feed URL 2",
-      "description": "The URL of the second RSS feed to display (optional)",
+      "label": "setting.feed_url_2.label",
+      "description": "setting.feed_url_2.desc",
       "required": false
     },
     {
       "type": "string",
       "name": "feed_name_2",
-      "label": "RSS Feed Name 2",
-      "description": "A display name for the second RSS feed (optional, defaults to 'Feed 2')",
+      "label": "setting.feed_name_2.label",
+      "description": "setting.feed_name_2.desc",
       "defaultValue": "Feed 2",
       "required": false
     },
     {
       "type": "string",
       "name": "feed_url_3",
-      "label": "RSS Feed URL 3",
-      "description": "The URL of the third RSS feed to display (optional)",
+      "label": "setting.feed_url_3.label",
+      "description": "setting.feed_url_3.desc",
       "required": false
     },
     {
       "type": "string",
       "name": "feed_name_3",
-      "label": "RSS Feed Name 3",
-      "description": "A display name for the third RSS feed (optional, defaults to 'Feed 3')",
+      "label": "setting.feed_name_3.label",
+      "description": "setting.feed_name_3.desc",
       "defaultValue": "Feed 3",
       "required": false
     },
     {
       "type": "number",
       "name": "item_count",
-      "label": "Number of items per feed",
-      "description": "The number of feed items to display per feed",
+      "label": "setting.item_count.label",
+      "description": "setting.item_count.desc",
       "required": true,
       "defaultValue": 5,
       "min": 1,
@@ -72,8 +72,8 @@
     {
       "type": "number",
       "name": "update_frequency",
-      "label": "Update frequency (minutes)",
-      "description": "How often to fetch the latest feed items (in minutes)",
+      "label": "setting.update_frequency.label",
+      "description": "setting.update_frequency.desc",
       "required": true,
       "defaultValue": 30,
       "min": 5

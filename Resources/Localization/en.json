@@ -9,4 +9,21 @@
   "metric.date.desc": "The publication date of the feed item",
   "metric.author.label": "Author",
   "metric.author.desc": "The author of the feed item"
+  "metric.author.desc": "The author of the feed item",
+  "setting.feed_url_1.label": "RSS Feed URL 1",
+  "setting.feed_url_1.desc": "The URL of the first RSS feed to display",
+  "setting.feed_name_1.label": "RSS Feed Name 1",
+  "setting.feed_name_1.desc": "A display name for the first RSS feed (optional, defaults to 'Feed 1')",
+  "setting.feed_url_2.label": "RSS Feed URL 2",
+  "setting.feed_url_2.desc": "The URL of the second RSS feed to display (optional)",
+  "setting.feed_name_2.label": "RSS Feed Name 2",
+  "setting.feed_name_2.desc": "A display name for the second RSS feed (optional, defaults to 'Feed 2')",
+  "setting.feed_url_3.label": "RSS Feed URL 3",
+  "setting.feed_url_3.desc": "The URL of the third RSS feed to display (optional)",
+  "setting.feed_name_3.label": "RSS Feed Name 3",
+  "setting.feed_name_3.desc": "A display name for the third RSS feed (optional, defaults to 'Feed 3')",
+  "setting.item_count.label": "Number of items per feed",
+  "setting.item_count.desc": "The number of feed items to display per feed",
+  "setting.update_frequency.label": "Update frequency (minutes)",
+  "setting.update_frequency.desc": "How often to fetch the latest feed items (in minutes)"
 }
