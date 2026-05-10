@@ -60,13 +60,15 @@ public sealed class Plugin : IMoBroPlugin
   {
     // Register all items + start periodic update
     _service.Register(BuildItems());
-    _scheduler.Interval(Update, _updateFrequency, TimeSpan.Zero);
+    _scheduler.Interval(() => Update(), _updateFrequency, TimeSpan.Zero);
   }
 
-  private void Update()
+  private void Update(int? specificFeedIdx = null)
   {
     for (var feedIdx = 0; feedIdx < _feeds.Count; feedIdx++)
     {
+      if (specificFeedIdx.HasValue && specificFeedIdx.Value != feedIdx) continue;
+
       try
       {
         var feed = FeedReader.ReadAsync(_feeds[feedIdx].Url).GetAwaiter().GetResult();
@@ -97,19 +99,43 @@ public sealed class Plugin : IMoBroPlugin
   private List<IMoBroItem> BuildItems()
   {
     var list = new List<IMoBroItem>();
+    var actionBuilder = MoBroItem.CreateAction()
+      .WithId("refresh_feeds")
+      .WithLabel("action.refresh_feeds.label", "action.refresh_feeds.desc")
+      .OfNoCategory()
+      .OfNoGroup()
+      .WithNoMetric()
+      .WithHandler(HandleRefreshAction);
+
+    for (var i = 0; i < _feeds.Count; i++)
+    {
+      var feedIdx = i;
+      actionBuilder.WithSetting(sb => sb
+        .WithName($"feed_{feedIdx}")
+        .WithLabel(_feeds[feedIdx].Name)
+        .OfTypeCheckbox()
+        .WithDefault(true)
+        .Build()
+      );
+    }
+
+    list.Add(actionBuilder.Build());
 
     for (var feedIdx = 0; feedIdx < _feeds.Count; feedIdx++)
     {
       var categoryId = CategoryId(feedIdx);
       var feedName = _feeds[feedIdx].Name;
+      var feedUrl = _feeds[feedIdx].Url;
 
+      // category for specific feed
       list.Add(
         MoBroItem.CreateCategory()
           .WithId(categoryId)
-          .WithLabel(feedName, $"RSS feed: {feedName}")
+          .WithLabel(feedName, $"RSS feed: {feedName} ({feedUrl})")
           .Build()
       );
 
+      // metrics for specific feed
       for (var i = 0; i < _itemCount; i++)
       {
         var groupId = GroupId(feedIdx, i);
@@ -117,7 +143,7 @@ public sealed class Plugin : IMoBroPlugin
         list.Add(
           MoBroItem.CreateGroup()
             .WithId(groupId)
-            .WithLabel($"News {itemNumber}", $"RSS feed {feedName} item {itemNumber}")
+            .WithLabel($"Item {itemNumber}", $"RSS feed {feedName} item {itemNumber}")
             .Build()
         );
         list.Add(BuildMetric(feedIdx, i, "title", categoryId, groupId, CoreMetricType.Text));
@@ -129,6 +155,17 @@ public sealed class Plugin : IMoBroPlugin
     }
 
     return list;
+  }
+
+  private void HandleRefreshAction(IMoBroSettings settings)
+  {
+    for (var i = 0; i < _feeds.Count; i++)
+    {
+      if (settings.GetValue($"feed_{i}", false))
+      {
+        Update(i);
+      }
+    }
   }
 
   private static Metric BuildMetric(

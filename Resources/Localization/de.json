@@ -8,8 +8,9 @@
   "metric.date.label": "Datum",
   "metric.date.desc": "Das Veröffentlichungsdatum des Feed-Eintrags",
   "metric.author.label": "Autor",
-  "metric.author.desc": "Der Autor des Feed-Eintrags"
   "metric.author.desc": "Der Autor des Feed-Eintrags",
+  "action.refresh_feeds.label": "RSS-Feeds aktualisieren",
+  "action.refresh_feeds.desc": "Löst eine manuelle Aktualisierung der ausgewählten RSS-Feeds aus",
   "setting.feed_url_1.label": "RSS Feed URL 1",
   "setting.feed_url_1.desc": "Die URL des ersten anzuzeigenden RSS-Feeds",
   "setting.feed_name_1.label": "RSS Feed Name 1",
