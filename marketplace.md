@@ -26,14 +26,12 @@ Most news sites and blogs offer RSS feeds. Here are a few popular examples to ge
 | Hacker News                             | `https://hnrss.org/frontpage`                     |
 | ORF (Austrian Broadcasting Corporation) | `https://rss.orf.at/news.xml`                     |
 
-> **Tip:** To find the RSS feed for a website, look for the RSS icon (📡) on the page or search for "RSS
-> feed [website name]".
+**Tip:** To find the RSS feed for a website, look for the RSS icon (📡) on the page or search for "RSS
+feed [website name]".
 
 ---
 
-## Configuration
-
-### Settings
+## Settings
 
 | Setting                        |  Default | Description                                                    |
 |--------------------------------|---------:|----------------------------------------------------------------|

@@ -112,7 +112,7 @@ public sealed class Plugin : IMoBroPlugin
       var feedIdx = i;
       actionBuilder.WithSetting(sb => sb
         .WithName($"feed_{feedIdx}")
-        .WithLabel(_feeds[feedIdx].Name)
+        .WithLabel(_feeds[feedIdx].Name, $"RSS feed: {_feeds[feedIdx].Name} ({_feeds[feedIdx].Url})")
         .OfTypeCheckbox()
         .WithDefault(true)
         .Build()
