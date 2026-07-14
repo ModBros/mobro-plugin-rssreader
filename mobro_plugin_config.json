@@ -19,6 +19,7 @@
       "name": "feed_url_1",
       "label": "setting.feed_url_1.label",
       "description": "setting.feed_url_1.desc",
+      "defaultValue": "https://feeds.bbci.co.uk/news/rss.xml",
       "required": true
     },
     {
@@ -26,7 +27,7 @@
       "name": "feed_name_1",
       "label": "setting.feed_name_1.label",
       "description": "setting.feed_name_1.desc",
-      "defaultValue": "Feed 1",
+      "defaultValue": "BBC News",
       "required": false
     },
     {
