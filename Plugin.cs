@@ -71,8 +71,8 @@ public sealed class Plugin : IMoBroPlugin
 
       try
       {
-        var feed = FeedReader.ReadAsync(_feeds[feedIdx].Url).GetAwaiter().GetResult();
         var now = DateTime.UtcNow;
+        var feed = FeedReader.ReadAsync(_feeds[feedIdx].Url).GetAwaiter().GetResult();
         var idx = 0;
         foreach (var item in feed.Items)
         {
@@ -87,6 +87,8 @@ public sealed class Plugin : IMoBroPlugin
           ]);
           idx++;
         }
+
+        _service.UpdateMetricValue(new MetricValue(LastUpdatedMetricId(feedIdx), now, now));
       }
       catch (Exception ex)
       {
@@ -132,6 +134,17 @@ public sealed class Plugin : IMoBroPlugin
         MoBroItem.CreateCategory()
           .WithId(categoryId)
           .WithLabel(feedName, $"RSS feed: {feedName} ({feedUrl})")
+          .Build()
+      );
+
+      // last updated metric for the feed itself
+      list.Add(
+        MoBroItem.CreateMetric()
+          .WithId(LastUpdatedMetricId(feedIdx))
+          .WithLabel("metric.last_updated.label", "metric.last_updated.desc")
+          .OfType(CoreMetricType.DateTime)
+          .OfCategory(categoryId)
+          .OfNoGroup()
           .Build()
       );
 
@@ -189,4 +202,5 @@ public sealed class Plugin : IMoBroPlugin
   private static string CategoryId(int feedIdx) => $"category_feed_{feedIdx}";
   private static string GroupId(int feedIdx, int idx) => $"group_feed_{feedIdx}_news_{idx}";
   private static string MetricId(int feedIdx, int idx, string field) => $"feed_{feedIdx}_news_{idx}_{field}";
+  private static string LastUpdatedMetricId(int feedIdx) => $"feed_{feedIdx}_last_updated";
 }

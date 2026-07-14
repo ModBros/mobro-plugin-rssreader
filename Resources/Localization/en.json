@@ -9,6 +9,8 @@
   "metric.date.desc": "The publication date of the feed item",
   "metric.author.label": "Author",
   "metric.author.desc": "The author of the feed item",
+  "metric.last_updated.label": "Last Updated",
+  "metric.last_updated.desc": "The last time the feed itself was updated",
   "action.refresh_feeds.label": "Refresh RSS feeds",
   "action.refresh_feeds.desc": "Triggers a manual refresh of the selected RSS feeds",
   "setting.feed_url_1.label": "RSS Feed URL 1",
