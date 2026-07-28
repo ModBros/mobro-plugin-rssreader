@@ -5,7 +5,7 @@
   "description": "Display the latest items from up to 3 RSS feeds",
   "assembly": "Plugin.RssReader.dll",
   "localization": "Resources/Localization",
-  "repository": null,
+  "repository": "https://github.com/ModBros/mobro-plugin-rssreader",
   "homepage": null,
   "tags": [
     "rss",
