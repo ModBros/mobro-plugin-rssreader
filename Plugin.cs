@@ -32,6 +32,7 @@ public sealed class Plugin : IMoBroPlugin
   private readonly IMoBroService _service;
   private readonly IMoBroScheduler _scheduler;
   private readonly ILogger _logger;
+  private readonly Lock _updateLock = new();
 
   private readonly List<(string Url, string Name)> _feeds;
   private readonly int _itemCount;
@@ -77,6 +78,9 @@ public sealed class Plugin : IMoBroPlugin
 
   private void Update(int? specificFeedIdx = null)
   {
+    // the refresh action and the scheduler may update at the same time
+    using var _ = _updateLock.EnterScope();
+
     var attempted = 0;
     var failed = 0;
     Exception? lastException = null;

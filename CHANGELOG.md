@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A single unreachable or invalid feed no longer prevents the other feeds from updating
 - Plugin no longer fails to start when optional feed URLs or names are left empty
 - Item slots are cleared when a feed returns fewer items than configured, instead of showing outdated items
+- A manual refresh no longer runs at the same time as the scheduled update
 
 ## 1.0.0 - 2024-07-28
 
