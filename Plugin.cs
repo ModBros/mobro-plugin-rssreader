@@ -65,37 +65,54 @@ public sealed class Plugin : IMoBroPlugin
 
   private void Update(int? specificFeedIdx = null)
   {
+    var attempted = 0;
+    var failed = 0;
+    Exception? lastException = null;
+
     for (var feedIdx = 0; feedIdx < _feeds.Count; feedIdx++)
     {
       if (specificFeedIdx.HasValue && specificFeedIdx.Value != feedIdx) continue;
 
+      attempted++;
       try
       {
-        var now = DateTime.UtcNow;
-        var feed = FeedReader.ReadAsync(_feeds[feedIdx].Url).GetAwaiter().GetResult();
-        var idx = 0;
-        foreach (var item in feed.Items)
-        {
-          if (idx >= _itemCount) break;
-
-          _service.UpdateMetricValues([
-            new MetricValue(MetricId(feedIdx, idx, "title"), now, item.Title),
-            new MetricValue(MetricId(feedIdx, idx, "description"), now, item.Description),
-            new MetricValue(MetricId(feedIdx, idx, "link"), now, item.Link),
-            new MetricValue(MetricId(feedIdx, idx, "date"), now, item.PublishingDate),
-            new MetricValue(MetricId(feedIdx, idx, "author"), now, item.Author),
-          ]);
-          idx++;
-        }
-
-        _service.UpdateMetricValue(new MetricValue(LastUpdatedMetricId(feedIdx), now, now));
+        UpdateFeed(feedIdx);
       }
       catch (Exception ex)
       {
+        // log and continue, so a single failing feed does not block the others
+        failed++;
+        lastException = ex;
         _logger.LogError(ex, "Failed to fetch or parse RSS feed {FeedIndex}: {Url}", feedIdx + 1, _feeds[feedIdx].Url);
-        throw new PluginException($"Failed to fetch or parse RSS feed {feedIdx + 1}: {_feeds[feedIdx].Url}", ex);
       }
     }
+
+    if (attempted > 0 && failed == attempted)
+    {
+      throw new PluginException("Failed to fetch or parse any of the RSS feeds", lastException);
+    }
+  }
+
+  private void UpdateFeed(int feedIdx)
+  {
+    var now = DateTime.UtcNow;
+    var feed = FeedReader.ReadAsync(_feeds[feedIdx].Url).GetAwaiter().GetResult();
+    var idx = 0;
+    foreach (var item in feed.Items)
+    {
+      if (idx >= _itemCount) break;
+
+      _service.UpdateMetricValues([
+        new MetricValue(MetricId(feedIdx, idx, "title"), now, item.Title),
+        new MetricValue(MetricId(feedIdx, idx, "description"), now, item.Description),
+        new MetricValue(MetricId(feedIdx, idx, "link"), now, item.Link),
+        new MetricValue(MetricId(feedIdx, idx, "date"), now, item.PublishingDate),
+        new MetricValue(MetricId(feedIdx, idx, "author"), now, item.Author),
+      ]);
+      idx++;
+    }
+
+    _service.UpdateMetricValue(new MetricValue(LastUpdatedMetricId(feedIdx), now, now));
   }
 
   private List<IMoBroItem> BuildItems()
