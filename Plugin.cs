@@ -202,7 +202,7 @@ public sealed class Plugin : IMoBroPlugin
         list.Add(
           MoBroItem.CreateGroup()
             .WithId(groupId)
-            .WithLabel($"Item {itemNumber}", $"RSS feed {feedName} item {itemNumber}")
+            .WithLabel($"group.item_{itemNumber}.label", "group.item.desc")
             .Build()
         );
         list.Add(BuildMetric(feedIdx, i, "title", categoryId, groupId, CoreMetricType.Text));
