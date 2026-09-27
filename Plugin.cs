@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Threading;
 using CodeHollow.FeedReader;
 using Microsoft.Extensions.Logging;
 using MoBro.Plugin.SDK;
@@ -20,6 +21,10 @@ public sealed class Plugin : IMoBroPlugin
   private const int DefaultItemCount = 5;
   private const int DefaultUpdateFrequencyMinutes = 30;
   private const int MaxDescriptionLength = 500;
+
+  private static readonly TimeSpan RequestTimeout = TimeSpan.FromSeconds(30);
+  private static readonly string UserAgent =
+    $"MoBro-RssReader/{typeof(Plugin).Assembly.GetName().Version?.ToString(3)} (+https://mobro.app)";
 
   private static readonly Regex HtmlTagRegex = new("<[^>]*>", RegexOptions.Compiled);
   private static readonly Regex WhitespaceRegex = new(@"\s+", RegexOptions.Compiled);
@@ -103,7 +108,8 @@ public sealed class Plugin : IMoBroPlugin
   private void UpdateFeed(int feedIdx)
   {
     var now = DateTime.UtcNow;
-    var feed = FeedReader.ReadAsync(_feeds[feedIdx].Url).GetAwaiter().GetResult();
+    using var cts = new CancellationTokenSource(RequestTimeout);
+    var feed = FeedReader.ReadAsync(_feeds[feedIdx].Url, cts.Token, true, UserAgent).GetAwaiter().GetResult();
     var idx = 0;
     foreach (var item in feed.Items)
     {
