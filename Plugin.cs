@@ -113,6 +113,18 @@ public sealed class Plugin : IMoBroPlugin
       idx++;
     }
 
+    // clear remaining slots, so they do not keep items of a previous fetch
+    for (; idx < _itemCount; idx++)
+    {
+      _service.UpdateMetricValues([
+        new MetricValue(MetricId(feedIdx, idx, "title"), now, null),
+        new MetricValue(MetricId(feedIdx, idx, "description"), now, null),
+        new MetricValue(MetricId(feedIdx, idx, "link"), now, null),
+        new MetricValue(MetricId(feedIdx, idx, "date"), now, null),
+        new MetricValue(MetricId(feedIdx, idx, "author"), now, null),
+      ]);
+    }
+
     _service.UpdateMetricValue(new MetricValue(LastUpdatedMetricId(feedIdx), now, now));
   }
 
