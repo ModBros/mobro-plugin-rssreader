@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Item descriptions are shown as plain text without HTML markup and are shortened to 500 characters
 - Feed requests time out after 30 seconds and identify themselves with a MoBro user agent
 - Item group labels are now translated
+- The MoBro SDK is no longer bundled with the plugin, as it is provided by MoBro
 
 ### Fixed
 

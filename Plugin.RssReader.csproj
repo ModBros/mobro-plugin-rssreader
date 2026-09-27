@@ -33,6 +33,6 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="CodeHollow.FeedReader" Version="1.2.6"/>
-        <PackageReference Include="MoBro.Plugin.SDK" Version="1.1.1"/>
+        <PackageReference Include="MoBro.Plugin.SDK" Version="1.1.1" PrivateAssets="all"/>
     </ItemGroup>
 </Project>
