@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Text.RegularExpressions;
 using CodeHollow.FeedReader;
 using Microsoft.Extensions.Logging;
 using MoBro.Plugin.SDK;
@@ -17,6 +19,10 @@ public sealed class Plugin : IMoBroPlugin
   private const int MaxFeeds = 3;
   private const int DefaultItemCount = 5;
   private const int DefaultUpdateFrequencyMinutes = 30;
+  private const int MaxDescriptionLength = 500;
+
+  private static readonly Regex HtmlTagRegex = new("<[^>]*>", RegexOptions.Compiled);
+  private static readonly Regex WhitespaceRegex = new(@"\s+", RegexOptions.Compiled);
 
   private readonly IMoBroService _service;
   private readonly IMoBroScheduler _scheduler;
@@ -105,7 +111,7 @@ public sealed class Plugin : IMoBroPlugin
 
       _service.UpdateMetricValues([
         new MetricValue(MetricId(feedIdx, idx, "title"), now, item.Title),
-        new MetricValue(MetricId(feedIdx, idx, "description"), now, item.Description),
+        new MetricValue(MetricId(feedIdx, idx, "description"), now, ToPlainText(item.Description)),
         new MetricValue(MetricId(feedIdx, idx, "link"), now, item.Link),
         new MetricValue(MetricId(feedIdx, idx, "date"), now, item.PublishingDate),
         new MetricValue(MetricId(feedIdx, idx, "author"), now, item.Author),
@@ -209,6 +215,20 @@ public sealed class Plugin : IMoBroPlugin
         Update(i);
       }
     }
+  }
+
+  // descriptions are usually HTML and can be long
+  private static string? ToPlainText(string? html)
+  {
+    if (string.IsNullOrEmpty(html)) return html;
+
+    var text = HtmlTagRegex.Replace(html, " ");
+    text = WebUtility.HtmlDecode(text);
+    text = WhitespaceRegex.Replace(text, " ").Trim();
+
+    return text.Length <= MaxDescriptionLength
+      ? text
+      : text[..(MaxDescriptionLength - 1)].TrimEnd() + "…";
   }
 
   private static Metric BuildMetric(

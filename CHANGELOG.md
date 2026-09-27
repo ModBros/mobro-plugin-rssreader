@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 1.0.1 - Unreleased
 
+### Changed
+
+- Item descriptions are shown as plain text without HTML markup and are shortened to 500 characters
+
 ### Fixed
 
 - A single unreachable or invalid feed no longer prevents the other feeds from updating
