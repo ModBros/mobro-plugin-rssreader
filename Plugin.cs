@@ -40,10 +40,11 @@ public sealed class Plugin : IMoBroPlugin
     _feeds = [];
     for (var i = 1; i <= MaxFeeds; i++)
     {
-      var url = settings.GetValue<string>($"feed_url_{i}");
+      // optional settings: GetValue without a default throws if the setting is not set
+      var url = settings.GetValue($"feed_url_{i}", "");
       if (string.IsNullOrWhiteSpace(url)) continue;
 
-      var name = settings.GetValue<string>($"feed_name_{i}");
+      var name = settings.GetValue($"feed_name_{i}", "");
       if (string.IsNullOrWhiteSpace(name)) name = $"Feed {i}";
 
       _feeds.Add((url, name));

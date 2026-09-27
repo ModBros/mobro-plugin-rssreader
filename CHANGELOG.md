@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - A single unreachable or invalid feed no longer prevents the other feeds from updating
+- Plugin no longer fails to start when optional feed URLs or names are left empty
 
 ## 1.0.0 - 2024-07-28
 
