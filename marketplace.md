@@ -10,6 +10,7 @@ The **RSS Reader Plugin** allows MoBro to integrate the latest items from up to 
 - Customizable display name per feed
 - Configurable number of items shown per feed
 - Automatic periodic refresh at a configurable interval
+- Manual refresh of selected feeds via the "Refresh RSS feeds" action
 
 ---
 
@@ -33,13 +34,13 @@ feed [website name]".
 
 ## Settings
 
-| Setting                        |  Default | Description                                                    |
-|--------------------------------|---------:|----------------------------------------------------------------|
-| **RSS Feed URL 1**             |          | The URL of the first RSS feed to display (required)            |
-| **RSS Feed Name 1**            | `Feed 1` | A display name for the first RSS feed                          |
-| **RSS Feed URL 2**             |          | The URL of the second RSS feed to display (optional)           |
-| **RSS Feed Name 2**            | `Feed 2` | A display name for the second RSS feed                         |
-| **RSS Feed URL 3**             |          | The URL of the third RSS feed to display (optional)            |
-| **RSS Feed Name 3**            | `Feed 3` | A display name for the third RSS feed                          |
-| **Number of items per feed**   |      `5` | The number of feed items to display per feed (min: 1, max: 20) |
-| **Update frequency (minutes)** |     `30` | How often to fetch the latest feed items in minutes (min: 5)   |
+| Setting                        |                                 Default | Description                                                    |
+|--------------------------------|----------------------------------------:|----------------------------------------------------------------|
+| **RSS Feed URL 1**             | `https://feeds.bbci.co.uk/news/rss.xml` | The URL of the first RSS feed to display (required)            |
+| **RSS Feed Name 1**            |                              `BBC News` | A display name for the first RSS feed                          |
+| **RSS Feed URL 2**             |                                         | The URL of the second RSS feed to display (optional)           |
+| **RSS Feed Name 2**            |                                `Feed 2` | A display name for the second RSS feed                         |
+| **RSS Feed URL 3**             |                                         | The URL of the third RSS feed to display (optional)            |
+| **RSS Feed Name 3**            |                                `Feed 3` | A display name for the third RSS feed                          |
+| **Number of items per feed**   |                                     `5` | The number of feed items to display per feed (min: 1, max: 20) |
+| **Update frequency (minutes)** |                                    `30` | How often to fetch the latest feed items in minutes (min: 5)   |
