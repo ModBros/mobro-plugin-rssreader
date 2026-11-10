@@ -73,10 +73,10 @@ public sealed class Plugin : IMoBroPlugin
   {
     // Register all items + start periodic update
     _service.Register(BuildItems());
-    _scheduler.Interval(() => Update(), _updateFrequency, TimeSpan.Zero);
+    _scheduler.Interval(() => Update(_ => true), _updateFrequency, TimeSpan.Zero);
   }
 
-  private void Update(int? specificFeedIdx = null)
+  private void Update(Func<int, bool> includeFeed)
   {
     // the refresh action and the scheduler may update at the same time
     using var _ = _updateLock.EnterScope();
@@ -87,7 +87,7 @@ public sealed class Plugin : IMoBroPlugin
 
     for (var feedIdx = 0; feedIdx < _feeds.Count; feedIdx++)
     {
-      if (specificFeedIdx.HasValue && specificFeedIdx.Value != feedIdx) continue;
+      if (!includeFeed(feedIdx)) continue;
 
       attempted++;
       try
@@ -218,13 +218,8 @@ public sealed class Plugin : IMoBroPlugin
 
   private void HandleRefreshAction(IMoBroSettings settings)
   {
-    for (var i = 0; i < _feeds.Count; i++)
-    {
-      if (settings.GetValue($"feed_{i}", false))
-      {
-        Update(i);
-      }
-    }
+    // update all selected feeds in one go, so a failing feed does not skip the remaining ones
+    Update(i => settings.GetValue($"feed_{i}", false));
   }
 
   // descriptions are usually HTML and can be long
