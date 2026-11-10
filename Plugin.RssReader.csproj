@@ -9,7 +9,7 @@
         <Title>MoBro RSS Reader Plugin</Title>
         <Copyright>(C) ModBros KG 2026</Copyright>
         <PackageProjectUrl>https://mobro.app</PackageProjectUrl>
-        <VersionPrefix>1.0.0</VersionPrefix>
+        <VersionPrefix>1.0.1</VersionPrefix>
         <IsPackable>false</IsPackable>
         <Nullable>enable</Nullable>
         <OutputType>Exe</OutputType>
